@@ -3,6 +3,16 @@
     margin: 0;
     padding: 0;
   }
+
+  /* Walmart Brand Colors */
+  :root {
+    --walmart-blue: #0071ce;
+    --walmart-yellow: #ffc220;
+    --walmart-dark-blue: #004c91;
+    --walmart-light-blue: #00aeef;
+    --walmart-green: #76b900;
+    --walmart-gray: #f7f7f7;
+  }
   
   .home,
   .products,
@@ -13,19 +23,21 @@
     align-items: center;
     justify-content: center;
     font-size: 3rem;
+    font-family: 'PT Sans', sans-serif;
   }
 
+  /* Walmart-themed backgrounds */
   .products {
-    /* background-image: url('assets/images/img-1.jpg'); */
+    background: linear-gradient(135deg, var(--walmart-blue) 0%, var(--walmart-light-blue) 100%);
     background-position: center;
-    background-size: fill;
+    background-size: cover;
     background-repeat: no-repeat;
-    color: black;
+    color: white;
     font-size: 100px;
   }
   
   .network .products {
-    /* background-image: url('assets/images/img-2.jpg'); */
+    background: linear-gradient(135deg, var(--walmart-green) 0%, var(--walmart-blue) 100%);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -34,10 +46,117 @@
   }
   
   .sign-up {
-    /* background-image: url('assets/images/img-8.jpg'); */
+    background: linear-gradient(135deg, var(--walmart-yellow) 0%, var(--walmart-blue) 100%);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    color: #fff;
+    color: var(--walmart-dark-blue);
     font-size: 100px;
+  }
+
+  /* Walmart logo styling */
+  .walmart-logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .walmart-logo {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 1rem;
+    transition: opacity 0.3s ease;
+  }
+
+  .walmart-text-logo {
+    background: linear-gradient(45deg, #ffc220, #ffeb3b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 2px;
+  }
+
+  /* Logo fallback styling */
+  .logo-fallback {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--walmart-yellow);
+    color: var(--walmart-dark-blue);
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  /* Sustainability indicators styling */
+  .sustainability-card {
+    background: var(--walmart-gray);
+    border-left: 4px solid var(--walmart-green);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .walmart-header {
+    background: var(--walmart-blue);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  /* Additional Walmart Dashboard Styling */
+  .walmart-branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .dashheader {
+    background: var(--walmart-blue);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .sustainability-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .metric-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-left: 4px solid var(--walmart-green);
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--walmart-blue);
+  }
+
+  .metric-label {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Responsive design for mobile */
+  @media (max-width: 768px) {
+    .walmart-branding {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .walmart-logo {
+      margin-bottom: 0.5rem;
+      margin-right: 0;
+    }
   }
