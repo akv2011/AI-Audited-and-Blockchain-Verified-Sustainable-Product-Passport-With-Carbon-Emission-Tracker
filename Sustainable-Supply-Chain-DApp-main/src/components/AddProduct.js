@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import * as AiIcons from 'react-icons/ai';
 const ipfsClient = require("ipfs-http-client")
-const projectId = '<API_KEY>';
-const projectSecret = '<API_KEY_SECRET>';
-const auth ='Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
+// Use local IPFS node instead of Infura for development
 const client = ipfsClient.create({
-    host: 'ipfs.infura.io',
+    host: 'localhost',
     port: 5001,
-    protocol: 'https',
-    headers: {
-        authorization: auth,
-    },
+    protocol: 'http'
 });
 
 const AddProduct = ({ addProduct, onAdd}) => {
@@ -56,13 +52,29 @@ const AddProduct = ({ addProduct, onAdd}) => {
     const onSubmit = async (e) => {
         e.preventDefault()
         console.log("submitting...")
-        const result = await client.add(buffer)
-        console.log("Ipfs result", result)
-        const image = result.path
-        const process = await JSON.stringify(processes)
-        console.log(process)
-        setD("now")
-        addProduct({name, image, process, date})
+        
+        if (!buffer) {
+            alert("Please select an image file first!")
+            return
+        }
+        
+        try {
+            const result = await client.add(buffer)
+            console.log("Ipfs result", result)
+            const image = result.path
+            const process = await JSON.stringify(processes)
+            console.log(process)
+            setD("now")
+            addProduct({name, image, process, date})
+        } catch (error) {
+            console.error("IPFS upload error:", error)
+            alert("Failed to upload image to IPFS. Please make sure IPFS is running locally on port 5001, or use a placeholder image.")
+            // Use a placeholder image as fallback
+            const image = "placeholder-image-hash"
+            const process = await JSON.stringify(processes)
+            setD("now")
+            addProduct({name, image, process, date})
+        }
     }
 
     const handleAddField = () => {
