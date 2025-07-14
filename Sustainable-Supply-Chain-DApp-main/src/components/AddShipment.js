@@ -88,25 +88,25 @@ const AddShipment = ({addShipment, shipType, onShipAdd}) => {
         const long = await position.coords.longitude.toString()
         setLatitude(lat)
         setLongitude(long)
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=AIzaSyA1NTVyRpS9yu9w8Otq1K3r-SwMJMvrhNY`;
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log("Geocoding API response:", data);
+        
+        // Try to get address via geocoding, but don't fail if it doesn't work
+        try {
+            const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "demo-key";
+            const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${long}&key=${apiKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            
             if (data.status === "OK" && data.results && data.results.length > 0) {
                 const address = data.results[0].formatted_address
                 setPlace(address)
             } else {
-                console.error("Geocoding API error:", data.status || "No results found");
-                // Fallback: use coordinates as location string
-                setPlace(`${lat}, ${long}`)
+                console.log("Geocoding not available, using coordinates");
+                setPlace(`Location: ${lat.substring(0,8)}, ${long.substring(0,8)}`)
             }
-        })
-        .catch(error => {
-            console.error("Error fetching geocoding data:", error);
-            // Fallback: use coordinates as location string
-            setPlace(`${lat}, ${long}`)
-        })        
+        } catch (error) {
+            console.log("Geocoding failed, using coordinates:", error);
+            setPlace(`Location: ${lat.substring(0,8)}, ${long.substring(0,8)}`)
+        }
     }
 
     const getDate = async () => {

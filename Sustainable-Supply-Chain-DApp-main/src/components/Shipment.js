@@ -47,17 +47,46 @@ shipments.sort((a,b) => b.id - a.id)
         </td>
         <td className="map">
             <div className="map-container">
-                <iframe 
-                    title={`Map for shipment ${shipment.id}`}
-                    style={{
-                        width: "120px", 
-                        height: "80px", 
-                        cursor: "pointer", 
-                        borderRadius: "8px",
-                        border: "2px solid #e5e7eb"
-                    }}
-                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyA1NTVyRpS9yu9w8Otq1K3r-SwMJMvrhNY&q=${shipment.latitude},${shipment.longitude}&zoom=13`}
-                />
+                {shipment.latitude && shipment.longitude ? (
+                    <div 
+                        style={{
+                            width: "120px", 
+                            height: "80px", 
+                            cursor: "pointer", 
+                            borderRadius: "8px",
+                            border: "2px solid #e5e7eb",
+                            backgroundColor: "#f3f4f6",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "10px",
+                            color: "#6b7280"
+                        }}
+                        onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${shipment.latitude},${shipment.longitude}`)}
+                        title={`Click to view location: ${shipment.latitude}, ${shipment.longitude}`}
+                    >
+                        📍 Map<br/>
+                        {shipment.latitude ? shipment.latitude.substring(0,6) : 'N/A'}<br/>
+                        {shipment.longitude ? shipment.longitude.substring(0,6) : 'N/A'}
+                    </div>
+                ) : (
+                    <div 
+                        style={{
+                            width: "120px", 
+                            height: "80px", 
+                            borderRadius: "8px",
+                            border: "2px dashed #d1d5db",
+                            backgroundColor: "#f9fafb",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "10px",
+                            color: "#9ca3af"
+                        }}
+                    >
+                        No Location
+                    </div>
+                )}
             </div>
         </td>
         <td className="date">

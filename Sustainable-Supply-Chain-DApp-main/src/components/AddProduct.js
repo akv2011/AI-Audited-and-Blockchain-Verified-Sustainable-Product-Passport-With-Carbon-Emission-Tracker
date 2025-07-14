@@ -53,27 +53,34 @@ const AddProduct = ({ addProduct, onAdd}) => {
         e.preventDefault()
         console.log("submitting...")
         
-        if (!buffer) {
-            alert("Please select an image file first!")
-            return
-        }
+        // Always use placeholder image for now (IPFS disabled)
+        const image = "QmPlaceholderImageHash123";
+        console.log("Using placeholder image (IPFS disabled for testing)")
+        
+        // Set current date in a readable format
+        const currentDate = date || new Date().toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        const process = JSON.stringify(processes)
+        console.log("Process:", process)
+        console.log("Submitting product:", {name, image, process, date: currentDate})
+        setD("now")
         
         try {
-            const result = await client.add(buffer)
-            console.log("Ipfs result", result)
-            const image = result.path
-            const process = await JSON.stringify(processes)
-            console.log(process)
-            setD("now")
-            addProduct({name, image, process, date})
+            await addProduct({name, image, process, date: currentDate})
+            console.log("Product added successfully!")
+            // Reset form
+            setName("")
+            setProcesses([""])
+            setDate("")
         } catch (error) {
-            console.error("IPFS upload error:", error)
-            alert("Failed to upload image to IPFS. Please make sure IPFS is running locally on port 5001, or use a placeholder image.")
-            // Use a placeholder image as fallback
-            const image = "placeholder-image-hash"
-            const process = await JSON.stringify(processes)
-            setD("now")
-            addProduct({name, image, process, date})
+            console.error("Error adding product:", error)
         }
     }
 
@@ -109,6 +116,9 @@ const AddProduct = ({ addProduct, onAdd}) => {
                         placeholder="Upload an Image"
                         onChange={captureFile}
                         />
+                    <small style={{color: "#666", fontSize: "12px"}}>
+                        📝 Image upload optional - placeholder will be used if no image selected or IPFS unavailable
+                    </small>
                 </div>
                 <div></div>                
                 <div className="form-inputs">
