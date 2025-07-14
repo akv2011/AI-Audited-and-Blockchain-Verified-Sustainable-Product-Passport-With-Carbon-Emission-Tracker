@@ -4,6 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+/backend/node_modules
+/ai_service/__pycache__
+/ai_service/*.pyc
 
 # testing
 /coverage
@@ -17,7 +20,48 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+
+# Python virtual environments
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.Python
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Blockchain/Truffle specific
+/build/contracts/
+.secret
+
+# Package manager files
+package-lock.json
+yarn.lock
+
+# Temporary files
+*.tmp
+*.temp

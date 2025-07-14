@@ -34,5 +34,17 @@ export const SidebarData = [
     path: '/journey',
     icon: <FaIcons.FaMapMarkedAlt/>,
     cName: 'side-text'
+  },
+  {
+    title: 'AI Analytics',
+    path: '/ai-analytics',
+    icon: <AiIcons.AiFillRobot/>,
+    cName: 'side-text'
+  },
+  {
+    title: 'Sustainability Dashboard',
+    path: '/sustainability-dashboard',
+    icon: <MdIcons.MdDashboard/>,
+    cName: 'side-text'
   }
 ];

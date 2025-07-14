@@ -24,44 +24,83 @@ const Products = () => {
 
     useEffect(() => { 
             const loadBlockchainData = async () => {
-                const web3 = window.web3
-                //Load account
-                const accounts = await web3.eth.getAccounts()
-                setAccount(accounts[0])
-                console.log(Origin.abi)
-                const networkId = await web3.eth.net.getId()
-                console.log(networkId)
-                const networkData = Origin.networks[networkId]
-                console.log(networkData)
-                if (networkData) {
-                    //Fetch contract
-                    const contract = new web3.eth.Contract(Origin.abi, networkData.address)
-                    setContract(contract)
-                    console.log(contract)
-                    const productCount = await contract.methods.productCount().call()
-                    //Load products
-                    for (var i = 1; i <= productCount; i++) {
-                        const newProduct = await contract.methods.products(i).call()
-                        setProducts(products =>([...products, newProduct]))
+                try {
+                    const web3 = window.web3
+                    if (!web3) {
+                        window.alert("Web3 not loaded. Please refresh the page.")
+                        setLoading(false)
+                        return
                     }
+                    
+                    //Load account
+                    const accounts = await web3.eth.getAccounts()
+                    if (accounts.length === 0) {
+                        window.alert("No accounts found. Please connect your wallet.")
+                        setLoading(false)
+                        return
                     }
-                else { 
-                    window.alert("Origin contract is not deployed to the detected network")
+                    setAccount(accounts[0])
+                    console.log("Connected account:", accounts[0])
+                    
+                    const networkId = await web3.eth.net.getId()
+                    console.log("Network ID:", networkId)
+                    const networkData = Origin.networks[networkId]
+                    console.log("Network data:", networkData)
+                    
+                    if (networkData) {
+                        //Fetch contract
+                        const contract = new web3.eth.Contract(Origin.abi, networkData.address)
+                        setContract(contract)
+                        console.log("Contract loaded:", contract)
+                        
+                        const productCount = await contract.methods.productCount().call()
+                        console.log("Product count:", productCount)
+                        
+                        //Load products
+                        for (var i = 1; i <= productCount; i++) {
+                            const newProduct = await contract.methods.products(i).call()
+                            setProducts(products =>([...products, newProduct]))
+                        }
+                        setLoading(false)
+                    }
+                    else { 
+                        window.alert("Origin contract is not deployed to the detected network")
+                        setLoading(false)
+                    }
+                } catch (error) {
+                    console.error("Error loading blockchain data:", error)
+                    window.alert("Failed to connect to blockchain. Please check your connection.")
+                    setLoading(false)
                 }
             }
             loadBlockchainData()}, [])
     
     const [products, setProducts] = useState([])
-    const [contract, setContract] = useState([])
+    const [contract, setContract] = useState(null)
     const [showAddProduct, setShowAddProduct] = useState(false)
-    const [account, setAccount] = useState([])        
+    const [account, setAccount] = useState("")
+    const [loading, setLoading] = useState(true)        
 
     //Add Product
     const addProduct = ({name, image, process, date}) => {
+        if (!contract) {
+            window.alert("Contract not loaded. Please check your network connection.")
+            return
+        }
+        if (!account) {
+            window.alert("No account detected. Please connect your wallet.")
+            return
+        }
+        
         contract.methods.addProduct(name, image, process, date).send( {from: account} )
         .once('receipt', (receipt) => {
+            console.log("Product added successfully:", receipt)
             window.location.reload()
-          })
+        })
+        .on('error', (error) => {
+            console.error("Error adding product:", error)
+            window.alert("Failed to add product. Please try again.")
+        })
     }
 
     const onView = (hash) => {
@@ -76,15 +115,21 @@ const Products = () => {
             <div className="main-container">
             <header className="product-header"> 
                 <h2>Products</h2> 
-                <Button className="btn" 
-                onClick={() => setShowAddProduct(!showAddProduct)}
-                color={showAddProduct ? "#f2f2f2": "#3eb049"}
-                text={showAddProduct ? "X": <>{"Add Product"}</>}
-                />
+                {!loading && contract && (
+                    <Button className="btn" 
+                    onClick={() => setShowAddProduct(!showAddProduct)}
+                    color={showAddProduct ? "#f2f2f2": "#3eb049"}
+                    text={showAddProduct ? "X": <>{"Add Product"}</>}
+                    />
+                )}
             </header>
-            {showAddProduct && <AddProduct onAdd={() => setShowAddProduct(!showAddProduct)} 
-            addProduct={addProduct}/>}
-            <Product onView={onView} products={products} /> 
+            {loading && <div>Loading blockchain data...</div>}
+            {!loading && !contract && <div>Failed to connect to blockchain. Please check your network connection.</div>}
+            {!loading && contract && showAddProduct && (
+                <AddProduct onAdd={() => setShowAddProduct(!showAddProduct)} 
+                addProduct={addProduct}/>
+            )}
+            {!loading && <Product onView={onView} products={products} />}
             </div>
         </div>
         </>

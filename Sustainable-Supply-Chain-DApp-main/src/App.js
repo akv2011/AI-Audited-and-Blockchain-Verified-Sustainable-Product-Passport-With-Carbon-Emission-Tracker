@@ -17,6 +17,8 @@ import SocialReport from './components/pages/SocialReport';
 import Journey from './components/pages/Journey';
 import AssessLCI from './components/pages/AssessLCI';
 import AssessES from './components/pages/AssessES';
+import AIAnalytics from './components/AIAnalytics';
+import SustainabilityDashboard from './components/SustainabilityDashboard';
 
 function App() {
     return (
@@ -39,6 +41,8 @@ function App() {
             <Route path="/journey" element= {<Journey/>}/>
             <Route path="/journey/lci" element= {<AssessLCI/>}/>
             <Route path="/journey/assessments" element= {<AssessES/>}/>
+            <Route path="/ai-analytics" element= {<AIAnalytics/>}/>
+            <Route path="/sustainability-dashboard" element= {<SustainabilityDashboard/>}/>
             </Routes>
         </Router>
         </>

@@ -7,6 +7,8 @@ import Sidebar from '../Sidebar'
 import Shipment from '../Shipment'
 import AddShipment from '../AddShipment'
 import Button from "../FormButton"
+import WalmartLogo from '../WalmartLogo'
+import './Dashboard.css'
 
 const Dashboard = () => {
 
@@ -96,33 +98,115 @@ const Dashboard = () => {
 
     return (
         <>
-        <div className="main-container">
-        <Sidebar/>
-        <header className="dashheader">
-            <div className="shipment-btns">
-                <Button 
-                onClick={() => {setShowCreateShip(!showCreateShip); setShipType("Shipment Sent")}}
-                color="orange"
-                text="Send Shipment"
-                />
-                <Button 
-                onClick={() => {setShowCreateShip(!showCreateShip); setShipType("Shipment Received")}}
-                color="gold"
-                text="Receive Shipment"
-                />
-            </div>    
-                <Button className="btn" 
-                onClick= {() => {setShowCreateOrder(!showCreateOrder)}}
-                color= {showCreateOrder ? "#f2f2f2" : "#3eb049"}
-                text= {showCreateOrder ? "": <>Create Order</>}
-                />
-        </header>
-            {showCreateOrder && <AddOrder addOrder={addOrder}
-            onAdd= {() => {setShowCreateOrder(!showCreateOrder)}} />}
-            {showCreateShip && <AddShipment addShipment={addShipment}
-            shipType={shipType} onShipAdd= {() => {setShowCreateShip(!showCreateShip)}} />}
-        <Order orders={orders} />
-        <Shipment shipments = {newShipment} orders={orders} />
+        <div className="modern-dashboard">
+            <Sidebar/>
+            
+            {/* Modern Header */}
+            <div className="dashboard-content">
+                <header className="modern-header">
+                    <div className="header-left">
+                        <WalmartLogo size="medium" showText={true} />
+                        <div className="header-title">
+                            <h1>Supply Chain Dashboard</h1>
+                            <p>Sustainable Product Passport & Analytics</p>
+                        </div>
+                    </div>
+                    <div className="header-actions">
+                        <div className="action-group">
+                            <Button 
+                                onClick={() => {setShowCreateShip(!showCreateShip); setShipType("Shipment Sent")}}
+                                color="orange"
+                                text="📦 Send Shipment"
+                                className="modern-btn"
+                            />
+                            <Button 
+                                onClick={() => {setShowCreateShip(!showCreateShip); setShipType("Shipment Received")}}
+                                color="gold"
+                                text="📥 Receive Shipment"
+                                className="modern-btn"
+                            />
+                            <Button 
+                                onClick= {() => {setShowCreateOrder(!showCreateOrder)}}
+                                color= {showCreateOrder ? "#f2f2f2" : "#3eb049"}
+                                text= {showCreateOrder ? "✕ Cancel" : "➕ Create Order"}
+                                className="modern-btn primary"
+                            />
+                        </div>
+                    </div>
+                </header>
+
+                {/* Stats Cards */}
+                <div className="stats-grid">
+                    <div className="stat-card">
+                        <div className="stat-icon">📋</div>
+                        <div className="stat-content">
+                            <h3>{orders.length}</h3>
+                            <p>Total Orders</p>
+                        </div>
+                        <div className="stat-trend positive">+12%</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-icon">🚚</div>
+                        <div className="stat-content">
+                            <h3>{shipments.length}</h3>
+                            <p>Active Shipments</p>
+                        </div>
+                        <div className="stat-trend positive">+8%</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-icon">🌱</div>
+                        <div className="stat-content">
+                            <h3>92%</h3>
+                            <p>Sustainability Score</p>
+                        </div>
+                        <div className="stat-trend positive">+5%</div>
+                    </div>
+                    <div className="stat-card">
+                        <div className="stat-icon">🔗</div>
+                        <div className="stat-content">
+                            <h3>Active</h3>
+                            <p>Blockchain Status</p>
+                        </div>
+                        <div className="stat-indicator online"></div>
+                    </div>
+                </div>
+
+                {/* Modal Forms */}
+                {showCreateOrder && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <AddOrder addOrder={addOrder} onAdd= {() => {setShowCreateOrder(!showCreateOrder)}} />
+                        </div>
+                    </div>
+                )}
+                
+                {showCreateShip && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <AddShipment addShipment={addShipment} shipType={shipType} onShipAdd= {() => {setShowCreateShip(!showCreateShip)}} />
+                        </div>
+                    </div>
+                )}
+
+                {/* Content Sections */}
+                <div className="dashboard-sections">
+                    <div className="section-card">
+                        <div className="section-header">
+                            <h2>📋 Orders Management</h2>
+                            <span className="section-badge">{orders.length} items</span>
+                        </div>
+                        <Order orders={orders} />
+                    </div>
+                    
+                    <div className="section-card">
+                        <div className="section-header">
+                            <h2>🚚 Shipments Tracking</h2>
+                            <span className="section-badge">{shipments.length} items</span>
+                        </div>
+                        <Shipment shipments = {newShipment} orders={orders} />
+                    </div>
+                </div>
+            </div>
         </div>
         </>
     )

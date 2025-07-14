@@ -92,8 +92,20 @@ const AddShipment = ({addShipment, shipType, onShipAdd}) => {
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            const address = data.results[0].formatted_address
-            setPlace(address)
+            console.log("Geocoding API response:", data);
+            if (data.status === "OK" && data.results && data.results.length > 0) {
+                const address = data.results[0].formatted_address
+                setPlace(address)
+            } else {
+                console.error("Geocoding API error:", data.status || "No results found");
+                // Fallback: use coordinates as location string
+                setPlace(`${lat}, ${long}`)
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching geocoding data:", error);
+            // Fallback: use coordinates as location string
+            setPlace(`${lat}, ${long}`)
         })        
     }
 
