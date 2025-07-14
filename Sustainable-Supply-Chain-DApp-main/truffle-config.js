@@ -5,13 +5,13 @@ module.exports = {
   networks: {
     development: {
       host: "127.0.0.1",
-      port: 7545,
-      network_id: "*", // Match any network id
+      port: 8545,
+      network_id: "1337", // Match MetaMask Chain ID
       gas: 6721975,
       gasPrice: 20000000000
     },
     develop: {
-      port: 7545
+      port: 8545
     }
   },
   compilers: {

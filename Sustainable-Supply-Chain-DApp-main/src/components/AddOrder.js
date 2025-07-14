@@ -5,41 +5,79 @@ import Origin from "../abis/Origin.json"
 const AddOrder = ({addOrder, onAdd}) => {
 
     useEffect(() => { 
-        const loadWeb3 = async () => {
-            if(window.ethereum) {
-              window.web3 = new Web3(window.ethereum)
-              await window.ethereum.enable()
-            } if (window.web3) {
-              window.web3 = new Web3(window.web3.currentProvider)
-            } else {
-              window.alert("Please use Metamask!")
-            }
-        }
-        loadWeb3()}, [])
+        const loadWeb3AndBlockchainData = async () => {
+            try {
+                // Load Web3
+                let web3;
+                if(window.ethereum) {
+                    web3 = new Web3(window.ethereum)
+                    await window.ethereum.enable()
+                    window.web3 = web3
+                } else if (window.web3) {
+                    web3 = new Web3(window.web3.currentProvider)
+                    window.web3 = web3
+                } else {
+                    // Fallback: Try connecting directly to Ganache
+                    try {
+                        web3 = new Web3('http://localhost:7545')
+                        window.web3 = web3
+                        console.log("Connected directly to Ganache")
+                    } catch (error) {
+                        console.error("Failed to connect to blockchain:", error)
+                        // Load dummy products for testing
+                        const dummyProducts = [
+                            { id: '1', name: 'Eco-Friendly T-Shirt', price: '25.99', description: 'Sustainable cotton t-shirt' },
+                            { id: '2', name: 'Organic Cotton Jeans', price: '65.00', description: 'Organic denim jeans' },
+                            { id: '3', name: 'Bamboo Water Bottle', price: '15.99', description: 'Sustainable bamboo bottle' }
+                        ]
+                        setProducts(dummyProducts)
+                        window.alert("MetaMask not detected. Using demo products for testing. Please install MetaMask for full functionality.")
+                        return
+                    }
+                }
 
-    useEffect(() => { 
-        const loadBlockchainData = async () => {
-            const web3 = window.web3
-            const networkId = await web3.eth.net.getId()
-            console.log(networkId)
-            const networkData = Origin.networks[networkId]
-            console.log(networkData)
-            if (networkData) {
-                //Fetch contract
-                const contract = new web3.eth.Contract(Origin.abi, networkData.address)
-                const productCount = await contract.methods.productCount().call()
-                console.log(productCount)
-                //Load products
-                for (var i = 1; i <= productCount; i++) {
-                    const newProduct = await contract.methods.products(i).call()
-                    setProducts(products =>([...products, newProduct]))
+                // Load Blockchain Data
+                const networkId = await web3.eth.net.getId()
+                console.log("Network ID:", networkId)
+                const networkData = Origin.networks[networkId]
+                console.log("Network Data:", networkData)
+                
+                if (networkData) {
+                    //Fetch contract
+                    const contract = new web3.eth.Contract(Origin.abi, networkData.address)
+                    const productCount = await contract.methods.productCount().call()
+                    console.log("Product Count:", productCount)
+                    
+                    //Load products
+                    const loadedProducts = []
+                    for (var i = 1; i <= productCount; i++) {
+                        const newProduct = await contract.methods.products(i).call()
+                        loadedProducts.push(newProduct)
+                    }
+                    setProducts(loadedProducts)
+                    
+                    if (loadedProducts.length === 0) {
+                        window.alert("No products found on blockchain. Please add some products first using the 'Add Product' feature.")
+                    }
+                } else { 
+                    console.error("Contract deployment issue - Network ID:", networkId);
+                    console.error("Available networks:", Object.keys(Origin.networks));
+                    window.alert(`❌ Origin contract not found!\n\nDetected Network ID: ${networkId}\nAvailable Networks: ${Object.keys(Origin.networks).join(', ')}\n\n🔧 SOLUTION:\n1. Set MetaMask to Ganache Local network\n2. Chain ID: 5777\n3. RPC: http://127.0.0.1:7545\n\nSee CONTRACT_FIX_GUIDE.md for detailed instructions.`);
                 }
-                }
-            else { 
-                window.alert("Origin contract is not deployed to the detected network")
+            } catch (error) {
+                console.error("Error loading blockchain data:", error)
+                window.alert("Failed to connect to blockchain. Error: " + error.message + ". Please check your MetaMask connection and try again.")
+                
+                // Load dummy products as fallback
+                const dummyProducts = [
+                    { id: '1', name: 'Demo: Eco-Friendly T-Shirt', price: '25.99', description: 'Sustainable cotton t-shirt (Demo Mode)' },
+                    { id: '2', name: 'Demo: Organic Cotton Jeans', price: '65.00', description: 'Organic denim jeans (Demo Mode)' }
+                ]
+                setProducts(dummyProducts)
             }
         }
-        loadBlockchainData()}, [])
+        loadWeb3AndBlockchainData()
+    }, [])
 
     const [products, setProducts] = useState([])        
     const [name, setName] = useState("")

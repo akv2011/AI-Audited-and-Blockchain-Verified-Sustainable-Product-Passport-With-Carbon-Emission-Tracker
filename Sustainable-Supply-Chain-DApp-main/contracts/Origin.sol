@@ -5,7 +5,7 @@ contract Origin {
     uint public productCount = 0;
     uint public orderCount = 0;
     uint public shipmentCount = 0;
-    address owner = 0x3421668462324bFB48EA07D0B12243091CD09759;
+    address owner = 0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1; 
 
     mapping (uint => Product) public products; 
     mapping (uint => Order) public orders; 
@@ -37,7 +37,7 @@ contract Origin {
         address account
     );
    
-    function addProduct(string memory _name, string memory _image, string memory _process, string memory _date) public onlyOwner {
+    function addProduct(string memory _name, string memory _image, string memory _process, string memory _date) public {
         require(bytes(_name).length != 0);
         require(bytes(_image).length != 0);
         require(bytes(_process).length != 0);
@@ -65,7 +65,7 @@ contract Origin {
         address account
     );
    
-    function addOrder(string memory _name, string memory _quantity, string memory _unit, string memory _date) public onlyOwner {
+    function addOrder(string memory _name, string memory _quantity, string memory _unit, string memory _date) public {
         require(bytes(_name).length != 0);
         require(bytes(_quantity).length != 0);
         require(bytes(_unit).length != 0);

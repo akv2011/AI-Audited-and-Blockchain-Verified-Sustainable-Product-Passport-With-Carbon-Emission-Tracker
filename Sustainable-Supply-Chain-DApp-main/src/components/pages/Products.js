@@ -82,7 +82,7 @@ const Products = () => {
     const [loading, setLoading] = useState(true)        
 
     //Add Product
-    const addProduct = ({name, image, process, date}) => {
+    const addProduct = async ({name, image, process, date}) => {
         if (!contract) {
             window.alert("Contract not loaded. Please check your network connection.")
             return
@@ -92,15 +92,23 @@ const Products = () => {
             return
         }
         
-        contract.methods.addProduct(name, image, process, date).send( {from: account} )
-        .once('receipt', (receipt) => {
-            console.log("Product added successfully:", receipt)
+        console.log("Adding product with params:", {name, image, process, date, from: account})
+        
+        try {
+            const result = await contract.methods.addProduct(name, image, process, date).send({from: account})
+            console.log("Product added successfully:", result)
+            window.alert("Product added successfully!")
             window.location.reload()
-        })
-        .on('error', (error) => {
+        } catch (error) {
             console.error("Error adding product:", error)
-            window.alert("Failed to add product. Please try again.")
-        })
+            if (error.message.includes("User denied")) {
+                window.alert("Transaction was cancelled by user.")
+            } else if (error.message.includes("insufficient funds")) {
+                window.alert("Insufficient funds for transaction.")
+            } else {
+                window.alert("Failed to add product. Error: " + error.message)
+            }
+        }
     }
 
     const onView = (hash) => {

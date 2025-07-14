@@ -41,14 +41,15 @@ const Dashboard = () => {
                 // console.log(account)
                 // console.log(Origin.abi)
                 const networkId = await web3.eth.net.getId()
-                // console.log(networkId)
+                console.log("Detected Network ID:", networkId)
+                console.log("Available networks in Origin contract:", Object.keys(Origin.networks))
                 const networkData = Origin.networks[networkId]
-                // console.log(networkData)
+                console.log("Network data for", networkId, ":", networkData)
                 if (networkData) {
                     //Fetch contract
                     const contract = new web3.eth.Contract(Origin.abi, networkData.address)
                     setContract(contract)
-                    // console.log(contract)
+                    console.log("Contract loaded successfully:", networkData.address)
                     const orderCount = await contract.methods.orderCount().call()
                     //Load orders
                     for (var i = 1; i <= orderCount; i++) {
@@ -64,7 +65,9 @@ const Dashboard = () => {
                     }
                     }
                 else { 
-                    window.alert("Origin contract is not deployed to the detected network")
+                    console.error("Contract not found for network ID:", networkId)
+                    console.error("Available networks:", Object.keys(Origin.networks))
+                    window.alert(`Origin contract is not deployed to the detected network (ID: ${networkId}). Available networks: ${Object.keys(Origin.networks).join(', ')}`)
                 }
             }
         loadBlockchainData()}, [web3Loaded])
@@ -215,4 +218,3 @@ const Dashboard = () => {
 export default Dashboard;
 
 
-    
