@@ -1,20 +1,23 @@
-# Walmart Sustainable Supply Chain DApp 🌱
+# AI-Powered Walmart Sustainable Supply Chain DApp 🌱🤖
 
 <div align="center">
   <img src="https://logos-world.net/wp-content/uploads/2020/09/Walmart-Logo.png" width="300" alt="Walmart Logo">
-  <h3>Blockchain-Powered Sustainable Supply Chain Management</h3>
-  <p><strong>Powering Walmart's commitment to sustainability through blockchain technology</strong></p>
+  <h3>AI-Enhanced Blockchain-Powered Sustainable Supply Chain Management</h3>
+  <p><strong>Powering Walmart's commitment to sustainability through AI and blockchain technology</strong></p>
 </div>
 
 ## About
-The Walmart Sustainable Supply Chain DApp is developed to measure the environmental and social performance of Walmart's global supply chain network. This innovative information system is designed to collect data from Walmart's supply chain partners, assess their environmental and social sustainability performance, and transfer actionable insights to stakeholders for strategic decision-making processes. 
+The AI-Powered Walmart Sustainable Supply Chain DApp is an advanced system that combines artificial intelligence with blockchain technology to measure, predict, and optimize the environmental and social performance of Walmart's global supply chain network. This innovative information system collects data from Walmart's supply chain partners, uses AI to assess and predict sustainability performance, and provides actionable insights to stakeholders for strategic decision-making.
 
-The blockchain-powered system enables Walmart to:
+The AI-enhanced blockchain-powered system enables Walmart to:
 - **Prove product origin** with immutable blockchain records
+- **Predict carbon emissions** using advanced machine learning models
 - **Track and trace** product journeys throughout the entire supply chain
-- **Measure product lifecycle inventory** with precision
-- **Ensure supplier compliance** with Walmart's sustainability standards
+- **Measure product lifecycle inventory** with AI-powered precision
+- **Ensure supplier compliance** with automated AI auditing
 - **Provide transparency** to customers about product sustainability
+- **Generate real-time recommendations** for sustainability improvements
+- **Detect anomalies** in supply chain operations automatically
 
 <div align="center">
   <img src="https://corporate.walmart.com/content/corporate/en_us/purpose/esgreport/sustainability/_jcr_content/par/columncontrol_1988953659/par1/textimage_430530435/image.img.jpg/1620316474889.jpg" width="600" alt="Walmart Sustainability Initiative">
@@ -22,11 +25,20 @@ The blockchain-powered system enables Walmart to:
 
 ## 🏗️ System Architecture
 
-Our Decision Support System (DSS) is specifically designed for Walmart's complex supply chain ecosystem and comprises three integrated components:
+Our AI-Enhanced Decision Support System (DSS) is specifically designed for Walmart's complex supply chain ecosystem and comprises four integrated components:
 
-1. **Model Base**: Advanced sustainability assessment algorithms that calculate environmental and social performance metrics aligned with Walmart's sustainability goals
-2. **Blockchain Database**: Immutable data storage ensuring transparency and traceability across Walmart's supplier network  
-3. **React-Based User Interface**: Intuitive dashboard for Walmart associates and suppliers to input data and view results
+1. **AI/ML Model Base**: Advanced machine learning algorithms for carbon prediction, sustainability scoring, anomaly detection, and time series forecasting aligned with Walmart's sustainability goals
+2. **Blockchain Database**: Immutable data storage with smart contracts for AI predictions, ensuring transparency and traceability across Walmart's supplier network  
+3. **Microservices Architecture**: Python FastAPI AI service integrated with Node.js backend for scalable data processing
+4. **React-Based User Interface**: Intuitive dashboard with AI analytics, real-time widgets, and predictive insights for Walmart associates and suppliers
+
+### 🤖 AI/ML Features
+- **Carbon Emission Prediction**: Multiple ML models (Random Forest, XGBoost, Linear Regression) for accurate carbon footprint forecasting
+- **Sustainability Scoring**: AI-powered sustainability assessment with weighted environmental factors
+- **Anomaly Detection**: Real-time identification of unusual patterns in supply chain operations
+- **Time Series Forecasting**: Predictive analytics for future sustainability trends
+- **Smart Recommendations**: AI-generated actionable insights for sustainability improvements
+- **Real-time Alerts**: Automated notification system for critical sustainability thresholds
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/44509698/234395807-fe548331-02ab-4644-8938-9fe63077f22a.png" width="600">
@@ -38,10 +50,15 @@ Our Decision Support System (DSS) is specifically designed for Walmart's complex
 Library | Version | Use | Walmart Integration
 ------------ | ------------- | ------------- | -------------
 Truffle | 5.3.5 | Compile/deploy/test contracts, Ganache for running local test node | Smart contract development for Walmart supplier verification
-Solidity | 0.5.16 | Compile contracts | Blockchain logic for supply chain transparency
-Node | 16.17.0 | Build React UI | Frontend development for Walmart associates
+Solidity | 0.5.16 | Compile contracts | Blockchain logic for supply chain transparency and AI predictions
+Node | 16.17.0 | Build React UI and backend API | Frontend and backend development for Walmart associates
 Web3 | 1.3.5 | Connect UI to EVM | Blockchain connectivity for real-time data
-React | 18.2.0 | User interface | Dashboard for Walmart sustainability metrics
+React | 18.2.0 | User interface | Dashboard for Walmart sustainability metrics and AI analytics
+Python | 3.11+ | AI/ML microservice | FastAPI service for machine learning predictions
+FastAPI | 0.104.1 | AI service framework | RESTful API for AI/ML endpoints
+Scikit-learn | 1.3.2 | Machine learning | Carbon prediction and sustainability scoring
+XGBoost | 2.0.2 | Advanced ML | High-performance gradient boosting for predictions
+Pandas | 2.1.4 | Data processing | Data manipulation and analysis for AI models
 
 ## 🔄 Walmart Supply Chain Workflow
 This diagram shows how Walmart and its suppliers interact with the sustainable supply chain system:
@@ -97,44 +114,65 @@ Finally, when the order is completed, customers can see the entire product journ
 
 ## 🎯 Walmart-Specific Features
 
-### Project Gigaton Integration
+### Project Gigaton Integration with AI Enhancement
 This DApp directly supports Walmart's Project Gigaton initiative by:
-- **Carbon Emission Tracking**: Real-time monitoring of supplier carbon footprints
-- **Renewable Energy Monitoring**: Tracking renewable energy adoption across the supply chain
-- **Waste Reduction Metrics**: Measuring waste elimination efforts
-- **Sustainable Agriculture**: Monitoring sustainable farming practices
+- **AI-Powered Carbon Prediction**: Machine learning models predicting carbon emissions with 85%+ accuracy
+- **Smart Energy Optimization**: AI recommendations for renewable energy adoption
+- **Predictive Waste Reduction**: Forecasting waste generation and optimization opportunities
+- **Intelligent Agriculture Monitoring**: AI-driven sustainable farming practice recommendations
 
-### Supplier Onboarding
-- **Automated Compliance Checks**: Ensuring suppliers meet Walmart's sustainability standards
-- **Real-time Reporting**: Live dashboard for sustainability metrics
-- **Blockchain Verification**: Immutable proof of sustainability claims
-- **Mobile-First Design**: Easy access for suppliers worldwide
+### AI-Enhanced Supplier Management
+- **Automated AI Auditing**: Machine learning models for continuous compliance monitoring
+- **Predictive Risk Assessment**: Early warning system for sustainability risks
+- **Real-time AI Dashboard**: Live widgets showing AI predictions and recommendations
+- **Smart Contract Integration**: Blockchain storage of AI predictions and alerts
+- **Anomaly Detection**: Automatic identification of unusual sustainability patterns
 
-### Customer Transparency
-- **Product Journey Visualization**: Complete supply chain traceability
-- **Sustainability Scores**: Easy-to-understand environmental impact ratings
-- **QR Code Integration**: Instant access to product sustainability information
-- **Impact Reporting**: Showing customers their contribution to sustainability goals
+### Advanced Customer Intelligence
+- **AI Sustainability Scoring**: Machine learning-powered product sustainability ratings
+- **Predictive Impact Modeling**: Forecasting environmental impact of purchases
+- **Smart Recommendations**: AI-generated suggestions for sustainable alternatives
+- **Blockchain-Verified AI Claims**: Immutable proof of AI-generated sustainability insights
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 16.17.0 or higher
+- Python 3.11 or higher
 - Truffle Suite
 - MetaMask browser extension
 - Git
 
-### Installation
+### Quick Setup
+For detailed setup instructions, please see **[HOW_TO_RUN.md](./HOW_TO_RUN.md)** which provides comprehensive step-by-step instructions for:
+- Environment setup
+- Service configuration
+- Testing procedures
+- Troubleshooting
+
+### Installation Overview
 ```bash
 # Clone the repository
 git clone [repository-url]
 cd walmart-sustainable-supply-chain-dapp
 
-# Install dependencies
+# Install Node.js dependencies
 npm install
 
-# Start the development server
-npm start
+# Install Python AI service dependencies
+cd ai_service
+pip install -r requirements.txt
+
+# Install backend dependencies
+cd ../backend
+npm install
+
+# Start all services (see HOW_TO_RUN.md for details)
+# 1. Start blockchain (Ganache)
+# 2. Deploy contracts
+# 3. Start AI microservice
+# 4. Start backend API
+# 5. Start React frontend
 ```
 
 ### Deployment
@@ -146,14 +184,23 @@ npm run build
 truffle migrate --network [network_name]
 ```
 
-## 📊 Sustainability Metrics Dashboard
+## 📊 AI-Powered Sustainability Metrics Dashboard
 
-The dashboard provides real-time insights into:
-- **Carbon Footprint Reduction**: Track progress toward emission goals
-- **Energy Efficiency**: Monitor renewable energy adoption
-- **Waste Elimination**: Measure waste reduction across the supply chain
-- **Water Conservation**: Track water usage optimization
-- **Sustainable Sourcing**: Monitor responsible sourcing practices
+The enhanced dashboard provides real-time AI insights into:
+- **AI Carbon Predictions**: Machine learning forecasts of emission trends with confidence intervals
+- **Smart Energy Recommendations**: AI-driven renewable energy adoption strategies
+- **Predictive Waste Analytics**: Forecasting waste generation and reduction opportunities
+- **Anomaly Detection Alerts**: Real-time identification of sustainability performance outliers
+- **Sustainability Scoring**: AI-calculated composite sustainability ratings
+- **Time Series Forecasting**: Predictive models for future sustainability performance
+- **Blockchain Data Integration**: On-chain AI predictions and verification
+
+### 🤖 AI Analytics Features
+- **Multiple ML Models**: Random Forest, XGBoost, and Linear Regression for diverse prediction needs
+- **Real-time Widgets**: Live dashboard showing AI predictions and recommendations
+- **Interactive Forecasting**: Configurable time series predictions with visual charts
+- **Alert Management**: Real-time notification system for critical sustainability thresholds
+- **Model Performance Metrics**: Accuracy scores and confidence intervals for AI predictions
 
 ## 🤝 Contributing
 

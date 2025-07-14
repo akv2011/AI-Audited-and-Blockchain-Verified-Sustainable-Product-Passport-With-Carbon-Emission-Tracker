@@ -40,5 +40,11 @@ export const SidebarData = [
     path: '/ai-analytics',
     icon: <AiIcons.AiFillRobot/>,
     cName: 'side-text'
+  },
+  {
+    title: 'Sustainability Dashboard',
+    path: '/sustainability-dashboard',
+    icon: <MdIcons.MdDashboard/>,
+    cName: 'side-text'
   }
 ];
